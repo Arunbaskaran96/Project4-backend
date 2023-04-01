@@ -34,9 +34,9 @@ router.post("/user",async(req,res)=>{
     }
 })
 
-router.get("/users",async(req,res)=>{
+router.get("/users",Authverify,Userverify,async(req,res)=>{
     try {
-       const users= await UserModel.find()
+       const users= await UserModel.find({role:"user"})
        res.status(200).json(users)
     } catch (error) {
         console.log(error)
@@ -53,6 +53,17 @@ router.get("/user",Authverify,Userverify,async(req,res)=>{
         res.status(500).json({message:"something went wrong"})
     }
 })
+
+router.get("/user/:id",Authverify,Userverify,async(req,res)=>{
+    try {
+       const users= await UserModel.findOne({_id:req.params.id})
+       res.status(200).json(users)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:"something went wrong"})
+    }
+})
+
 
 router.put("/user",Authverify,Userverify,async(req,res)=>{
     try {

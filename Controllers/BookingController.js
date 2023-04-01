@@ -23,7 +23,7 @@ router.post("/booking/:id",Authverify,Userverify,async(req,res)=>{
 
 router.get("/bookings",Authverify,Userverify,async(req,res)=>{
     try {
-        const bookings=await Bookingmodel.find().populate("userId")
+        const bookings=await Bookingmodel.find().populate("userId").populate("roomId")
         if(bookings){
             res.status(200).json(bookings)
         }

@@ -17,7 +17,7 @@ router.post("/login",async(req,res)=>{
                     _id:user._id
                 }
                 const token=jwt.sign(userIdentity,jwt_secret,{expiresIn:"50m"})
-                res.status(200).json({message:"user found",token})
+                res.status(200).json({message:"user found",token,user})
             }else{
                 res.status(400).json({message:"Incorrect username/password"})
             }
