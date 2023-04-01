@@ -23,7 +23,19 @@ router.post("/booking/:id",Authverify,Userverify,async(req,res)=>{
 
 router.get("/bookings",Authverify,Userverify,async(req,res)=>{
     try {
-        const bookings=await Bookingmodel.find().populate("userId").populate("roomId")
+        const bookings=await Bookingmodel.find().populate("userId")
+        if(bookings){
+            res.status(200).json(bookings)
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:"something went wrong"})
+    }
+})
+
+router.get("/bookings/:id",Authverify,Userverify,async(req,res)=>{
+    try {
+        const bookings=await Bookingmodel.findOne({_id:req.params.id}).populate("userId").populate("roomId")
         if(bookings){
             res.status(200).json(bookings)
         }
@@ -44,6 +56,8 @@ router.get("/booking",Authverify,Userverify,async(req,res)=>{
         res.status(500).json({message:"something went wrong"})
     }
 })
+
+
 
 
 module.exports=router

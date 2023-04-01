@@ -6,6 +6,8 @@ const bodyparser=require("body-parser")
 
 app.use(cors())
 app.use(bodyparser.json())
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
 
 const SignupController=require("./Controllers/Users/SignupController")
 const SigninController=require("./Controllers/Users/SigninController")
